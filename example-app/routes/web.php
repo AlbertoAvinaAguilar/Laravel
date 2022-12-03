@@ -39,32 +39,19 @@ Route::get('inicio', function () {
 })->name('inicio');
 
 //Best Practice  //Tomar en cuenta el orden al momento de mostrar el formulario y al momentos de buscar por id
-Route::get('productos', function () {
-    return 'aqui iran los productos';
-})->name('productos.index');
+Route::get('productos', 'ProductosController@index')->name('productos.index');
 
-Route::get('productos/create', function () { //Mostrar el formulario para crear un producto (siempre primero obigatoriamente 1)
-    return 'aqui mostraremos el formulario para crear los productos';
-})->name('productos.create');
+Route::get('productos/create', 'ProductosController@create')->name('productos.create');
 
-Route::post('productos', function () { //Crear el producto
-})->name('productos.store');
+Route::post('productos', 'ProductosController@store')->name('productos.store'); //creamos en producto
 
-Route::get('productos/{product}', function ($product) { //Obtener un producto por su id (segunda despues de create)
-    return 'Aqui mostraremos el producto con el id seleccionado {$product}';
-})->name('productos.show');
+Route::get('productos/{product}', 'ProductosController@show')->name('productos.show');
 
-Route::get('productos/{product}/edit', function ($product) { //Obtener un producto por su id
-    return 'Aqui mostraremos el formulario para editar el producto con el id seleccionado {$product}';
-})->name('productos.edit');
+Route::get('productos/{product}/edit', 'ProductosController@edit')->name('productos.edit');
 
-Route::match(['put','patch'],'productos/{product}', function ($product) { //Obtener un producto por su id
+Route::match(['put','patch'],'productos/{product}', 'ProductosController@update')->name('productos.update');
 
-})->name('productos.update');
-
-Route::delete('productos/{product}', function ($product) { //Obtener un producto por su id
-
-})->name('productos.delete');
+Route::delete('productos/{product}', 'ProductosController@destroy')->name('productos.destroy');
 
 
 
