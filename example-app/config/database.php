@@ -89,6 +89,8 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            'encrypt' => 'false', // alternatively, defer to an env variable
+             'trust_server_certificate' => 'false',
         ],
 
     ],
