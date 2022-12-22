@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +52,32 @@ Route::get('productos/{product}/edit', 'ProductosController@edit')->name('produc
 Route::match(['put','patch'],'productos/{product}', 'ProductosController@update')->name('productos.update');
 
 Route::delete('productos/{product}', 'ProductosController@destroy')->name('productos.destroy');
+
+//Ruta con multiples parametros y parametro opcional
+Route::get('productos/{id}/{nombre}/{idPerfil?}',function($id,$nombre,$idPerfil = null){
+    if($idPerfil){
+        return "Bienvenido $nombre $id  numero $idPerfil";
+    }else{
+        return "Bienvenido $nombre $id";
+    }
+});
+
+//Rutas en diferentes versiones de laravel
+//Laravel 7 y anteriores
+Route::get('mensaje','ProductosController@mensaje')->name('productos.mensaje');
+//Laravel 8 y 9
+Route::get('mensaje',[ProductosController::class,'mensaje'])->name('productos.mensaje');
+
+//Rutas en un grupo compartiendo el mismo controlador
+Route::controller(ProductosController::class)->group(function(){
+    Route::get('productos', 'index')->name('productos.index');
+    Route::get('productos/create', 'create')->name('productos.create');
+    Route::post('productos', 'store')->name('productos.store'); //creamos en producto
+    Route::get('productos/{product}', 'show')->name('productos.show');
+    Route::get('productos/{product}/edit', 'edit')->name('productos.edit');
+    Route::match(['put','patch'],'productos/{product}', 'update')->name('productos.update');
+    Route::delete('productos/{product}', 'destroy')->name('productos.destroy');
+});
 
 
 

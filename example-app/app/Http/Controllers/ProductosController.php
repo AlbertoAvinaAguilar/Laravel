@@ -34,4 +34,8 @@ class ProductosController extends Controller
 
     }
 
+    public function mensaje(){
+        return 'hola';
+    }
+
 }
